@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: Arial;
+}
+
+.button {
+	background-color: red;
+	color: white;
+	border: solid 1 black;
+}
+
+td.formTitle {
+	background-color: silver;
+	color: white;
+	border: solid 1 black;
+}
+
+td.message {
+	background-color: orange;
+	color: black;
+	border: solid 1 black;
+}
