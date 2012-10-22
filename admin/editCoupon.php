@@ -18,44 +18,40 @@
 	<meta charset="UTF-8">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
-	<title>Edit Coupon</title>
+	<title>Coupons List -edit mode</title>
 	<LINK rel="stylesheet" type="text/css" href="../include/style/couponStyle.css">
 </head>
-
 <?php
-	// get the coupon id from coupon list and validate it if it's number
-	$dirtyCoupnId 	= $_POST["id"];
-	if (filter_var($dirtyCoupnId,FILTER_VALIDATE_INT)) 
-	{
-		$cleanCoupnId = $dirtyCoupnId; 
-	}else
-		{
-		throw new Exception("Need to be integer");
-		}
-		
-		$couponsDAO = couponsDAO::getInstance();
-		//$dao = new CouponsDAO();
-		
-		try 
-		{
-			$co=couponsDAO::getCoupon($cleanCoupnId);
-			var_dump($co);
-			//$dao->addCoupon($co);
-				
-		}
-		catch (CouponException $e)
-		{
-			echo $e->getMessage();
-		}
-		
+	//set from and howmany variables from the GUI.
+	//id_dirty - is the id of the selected coupon
+// get the coupon id from coupon list and validate it if it's number
+$dirtyCoupnId 	= $_POST["id"];
+if (filter_var($dirtyCoupnId,FILTER_VALIDATE_INT))
+{
+	$cleanCoupnId = $dirtyCoupnId;
+} else {
+	throw new Exception("Need to be integer");
+}
+$couponsDAO = couponsDAO::getInstance();
+try
+{
+	$coupon=couponsDAO::getCoupon($cleanCoupnId);
+	//var_dump($coupons);
 
+}
+catch (CouponException $e)
+{
+	echo $e->getMessage();
+}
+
+ 
 ?>
-	<body>
-		<form ENCTYPE="multipart/form-data" action='admin.php' method='post'>
+<body>
+		<form ENCTYPE="multipart/form-data" action='updateCoupon.php' method='post'>
 			<table border="1" dir="ltr" >
 				<tr>
 					<td colspan="2" class="formTitle">
-						Add a new Coupon
+						Edit a new Coupon
 					</td>
 				</tr>
 				<?php if($msg != '')
@@ -64,12 +60,6 @@
 
 				<tr>
 					<td>category id:</td>
-					<?php
-						if (!isset($couponsDAO))
-						{
-							 $couponsDAO = couponsDAO::getInstance();
-						}
-					?>
 					<?php $categoryList = couponsDAO::getCategories(); ?>
 					<?php //var_dump($categoryList);?>
 					<td>
@@ -77,7 +67,12 @@
                       		<?php 
                       		    
                       			foreach ($categoryList as $cat) { 
-					 				echo "<option value=" .  $cat->getCategory_id() . ">". $cat->getCategory_name() . "</option>"; 
+									$selected='';
+									if ($cat->getCategory_id() == $coupon->getCategory_id())
+									{
+										$selected=' selected ';
+									}
+					 				echo "<option value=" .  $cat->getCategory_id() . " " . $selected .">". $cat->getCategory_name() . "</option>"; 
 								} 
 								//array(4) { 
 								//[0]=> object(category)#4 (2) { ["category_id":"category":private]=> string(1) "1" ["category_name":"category":private]=> string(7) "clothes" } 
@@ -88,30 +83,30 @@
 				</tr>
 				<tr>
 					<td>business Id:</td>
-					<td><input type='text' name='businessId' value="<?php echo $businessId; ?>"></td>
+					<td><input type='text' name='businessId' value="<?php echo $coupon->getBusiness_id(); ?>"></td>
 				</tr>
 				<tr>
 					<td>name:</td>
-					<td><input type='text' name='name' value="<?php echo $name; ?>"></td>
+					<td><input type='text' name='name' value="<?php echo $coupon->getName(); ?>"></td>
 				</tr>
 				<tr>
 					<td colspan="2">description:</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea name='description' cols="50" rows="10"><?php echo $description; ?></textarea>
+						<textarea name='description' cols="50" rows="10"><?php echo $coupon->getDescription(); ?></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>image File Name:</td>
-					<td><input type='text' name='imageFileName' value="<?php echo $imageFileName; ?>"></td>
+					<td><input type='text' name='imageFileName' value="<?php echo $coupon->getImagefilename(); ?>"></td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type=submit class="button">
+						<input type=submit class="button" value="updateCoupon.php?">
 					</td>
 				</tr>
 			</table>
 		</form>
-	</body>
+</body>
 </html>

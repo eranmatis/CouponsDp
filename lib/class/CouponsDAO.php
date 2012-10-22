@@ -167,7 +167,33 @@ class CouponsDAO implements ICouponsDAO
 	}
 	function updateCoupon(Coupon $coupon)
 	{
-		throw new MovieException("unimplemented method!");
+		//throw new MovieException("unimplemented method!");
+		$mysqlDbCon = CouponsDAO::connect();
+		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET
+				category_id = ?, business_id = ?, name = ?
+				WHERE id = ?
+				");
+		
+				$stmt->bind_param('ssss', $category_id, $business_id, $name,$id);	
+		//$stmt = $mysqlDbCon->prepare("UPDATE coupons SET (category_id,business_id,name,description,imagefilename) VALUES (?, ?, ?, ?, ?)");
+		//$stmt->bind_param('iisss', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(), $coupon->getDescription(), $coupon->getImagefilename());
+		try
+		{
+			$stmt->execute();
+		}
+		catch (mysqli_sql_exception $e)
+		{
+			echo $e->getMessage();
+		}
+		
+		//printf ("New Record has id %d.\n", $mysqlDbCon->insert_id);
+		//$query = "INSERT INTO tb_coupons (categoryId, businessId, name, description, imageFileName) ";
+		//$query = $query . "	VALUES (".$ob->getCategoryId() .", ". $ob->getBusinessId() .", '". $ob->getName() ."', '". $ob->getDescription() ."', '". $ob->getImageFileName()."')";
+		//echo "query= ". $query. "<br/>";
+		//$mysqlDbCon->query($query);
+		
+		//Close the connection to the DB
+		CouponsDAO::disconnect($mysqlDbCon);
 	}
 	function getCategory($id)
 	{

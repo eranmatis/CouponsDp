@@ -19,7 +19,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<title>Coupons List</title>
-	<LINK rel="stylesheet" type="text/css" href="../include/style/couponeStyle.css">
+	<LINK rel="stylesheet" type="text/css" href="../include/style/couponStyle.css">
 </head>
 <?php
 	//set from and howmany variables from the GUI.
