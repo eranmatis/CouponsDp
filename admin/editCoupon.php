@@ -46,6 +46,7 @@ catch (CouponException $e)
 
  
 ?>
+
 <body>
 		<form ENCTYPE="multipart/form-data" action='updateCoupon.php' method='post'>
 			<table border="1" dir="ltr" >
@@ -54,6 +55,7 @@ catch (CouponException $e)
 						Edit a new Coupon
 					</td>
 				</tr>
+				
 				<?php if($msg != '')
 					echo "<tr><td colspan='2' class='message'>".$msg."</td></tr>";	
 				?>
@@ -72,7 +74,7 @@ catch (CouponException $e)
 									{
 										$selected=' selected ';
 									}
-					 				echo "<option value=" .  $cat->getCategory_id() . " " . $selected .">". $cat->getCategory_name() . "</option>"; 
+					 				echo "<option value=" .  $cat->getCategory_id() . " " . $selected .">". $cat->getCategory_name() ."</option>"; 
 								} 
 								//array(4) { 
 								//[0]=> object(category)#4 (2) { ["category_id":"category":private]=> string(1) "1" ["category_name":"category":private]=> string(7) "clothes" } 
@@ -103,7 +105,7 @@ catch (CouponException $e)
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type=submit class="button" value="updateCoupon.php?">
+						<input type=submit class="button" value="Update">
 					</td>
 				</tr>
 			</table>
