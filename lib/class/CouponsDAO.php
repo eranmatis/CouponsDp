@@ -27,7 +27,7 @@ class CouponsDAO implements ICouponsDAO
 			$mysqli -> connect("127.0.0.1","coupy","coup56","coupons");
 			
 			//Eran's MySql connection 
-			//$mysqli -> connect("127.0.0.1", "root", "", "cuponsmasterdb");
+			//$mysqli -> connect("127.0.0.1", "root", "", "coupons");
 		}
 		catch (mysqli_sql_exception $e)
 		{
