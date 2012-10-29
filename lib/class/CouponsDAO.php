@@ -23,7 +23,11 @@ class CouponsDAO implements ICouponsDAO
 		$mysqli = new mysqli();
 		try
 		{
+			//Miki's MySql connection 
 			$mysqli -> connect("127.0.0.1","coupy","coup56","coupons");
+			
+			//Eran's MySql connection 
+			//$mysqli -> connect("127.0.0.1", "root", "", "coupons");
 		}
 		catch (mysqli_sql_exception $e)
 		{
@@ -166,15 +170,11 @@ class CouponsDAO implements ICouponsDAO
 
 	}
 	function updateCoupon(Coupon $coupon)
-	{
+	{	
 		//throw new MovieException("unimplemented method!");
 		$mysqlDbCon = CouponsDAO::connect();
-		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET
-				category_id = ?, business_id = ?, name = ?
-				WHERE id = ?
-				");
-		
-				$stmt->bind_param('ssss', $category_id, $business_id, $name,$id);	
+		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET category_id = ?, business_id = ?, name = ? WHERE id = " . $coupon->getId());
+		$stmt->bind_param('iis', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName());	
 		//$stmt = $mysqlDbCon->prepare("UPDATE coupons SET (category_id,business_id,name,description,imagefilename) VALUES (?, ?, ?, ?, ?)");
 		//$stmt->bind_param('iisss', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(), $coupon->getDescription(), $coupon->getImagefilename());
 		try
