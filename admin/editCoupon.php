@@ -49,6 +49,7 @@ catch (CouponException $e)
 
 <body>
 		<form ENCTYPE="multipart/form-data" action='updateCoupon.php' method='post'>
+			<input type="hidden" id="id" name="id" value="<?php print $cleanCoupnId;?>">
 			<table border="1" dir="ltr" >
 				<tr>
 					<td colspan="2" class="formTitle">

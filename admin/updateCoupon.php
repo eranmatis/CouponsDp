@@ -21,21 +21,23 @@
 	<title>Coupons List -edit mode</title>
 	<LINK rel="stylesheet" type="text/css" href="../include/style/couponStyle.css">
 </head>
-<?php 
+<?php
+$id =  $_POST["id"];
 $categoryId 	= $_POST["categoryId"];
 $businessId 	= $_POST["businessId"];
 $name 			= $_POST["name"];
 $description 	= $_POST["description"];
 $imageFileName 	= $_POST["imageFileName"];
 
-
+//echo $name;
+//exit;
 if($name != '')
 {
 	//add the new coupon to the DB
 
 	$couponsDAO = couponsDAO::getInstance();
 	//$dao = new CouponsDAO();
-	$co = new Coupon(NULL,$categoryId, $businessId, $name, $description, $imageFileName);
+	$co = new Coupon($id,$categoryId, $businessId, $name, $description, $imageFileName);
 	//Create the Coupon object (the id is an auto increment value by the table)
 	//coupon = new Coupon(0, $categoryId, $businessId, $name, $description, $imageFileName);
 	try
