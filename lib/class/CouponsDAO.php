@@ -168,6 +168,7 @@ class CouponsDAO implements ICouponsDAO
 		CouponsDAO::disconnect($mysqlDbCon);
 
 	}
+	
 	function updateCoupon(Coupon $coupon)
 	{	
 		//throw new MovieException("unimplemented method!");
@@ -175,9 +176,9 @@ class CouponsDAO implements ICouponsDAO
 		$mysqlDbCon = CouponsDAO::connect();
 		echo "test2";
 		echo "this is ".$coupon->getId();
-		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET category_id = ?, business_id = ?, name = ? WHERE id = ?");
+		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET category_id = ?, business_id = ?, name = ?,description = ? ,imagefilename= ? WHERE id = ?");
 		echo "test3".$coupon->getName();
-		$stmt->bind_param('iisi', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(),$coupon->getId());
+		$stmt->bind_param('iisssi', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(),$coupon->getDescription(), $coupon->getImagefilename(),$coupon->getId());
 			
 		//$stmt = $mysqlDbCon->prepare("UPDATE coupons SET (category_id,business_id,name,description,imagefilename) VALUES (?, ?, ?, ?, ?)");
 		//$stmt->bind_param('iisss', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(), $coupon->getDescription(), $coupon->getImagefilename());
