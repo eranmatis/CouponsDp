@@ -1,5 +1,5 @@
 <?php
-include '../interface/ICouponsDAO.php';
+//include '../interface/ICouponsDAO.php';
 
 
 class CouponsDAO implements ICouponsDAO
@@ -25,8 +25,8 @@ class CouponsDAO implements ICouponsDAO
 		{
 			//Miki's MySql connection 
 			$mysqli -> connect("mysql.1host.co.il", "avishay_CDP", "coupon1", "avishay_CDP");
-			//Eran's MySql connection 
-			//$mysqli -> connect("127.0.0.1", "root", "", "coupons");
+			//Eran's localhost MySql connection 
+			//$mysqli -> connect("localhost", "root", "", "avishay_CDP");
 		}
 		catch (mysqli_sql_exception $e)
 		{
@@ -168,7 +168,6 @@ class CouponsDAO implements ICouponsDAO
 		CouponsDAO::disconnect($mysqlDbCon);
 
 	}
-	
 	function updateCoupon(Coupon $coupon)
 	{	
 		//throw new MovieException("unimplemented method!");
@@ -176,9 +175,9 @@ class CouponsDAO implements ICouponsDAO
 		$mysqlDbCon = CouponsDAO::connect();
 		echo "test2";
 		echo "this is ".$coupon->getId();
-		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET category_id = ?, business_id = ?, name = ?,description = ? ,imagefilename= ? WHERE id = ?");
+		$stmt = $mysqlDbCon->prepare ("UPDATE coupons SET category_id = ?, business_id = ?, name = ? WHERE id = ?");
 		echo "test3".$coupon->getName();
-		$stmt->bind_param('iisssi', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(),$coupon->getDescription(), $coupon->getImagefilename(),$coupon->getId());
+		$stmt->bind_param('iisi', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(),$coupon->getId());
 			
 		//$stmt = $mysqlDbCon->prepare("UPDATE coupons SET (category_id,business_id,name,description,imagefilename) VALUES (?, ?, ?, ?, ?)");
 		//$stmt->bind_param('iisss', $coupon->getCategory_id(), $coupon->getBusiness_id(), $coupon->getName(), $coupon->getDescription(), $coupon->getImagefilename());
