@@ -42,7 +42,7 @@
 <body>
 			<table border="1" dir="ltr" >
 				<tr>
-					<td colspan="5" class="formTitle">
+					<td colspan="6" class="formTitle">
 					רשימת קופונים
 					</td>
 				</tr>
@@ -55,6 +55,7 @@
 					<td>שם</td>
 					<td>קטגוריה</td>
 					<td>שם העסק</td>
+					<td>תמונה</td>
 					<td>עריכה</td>
 				</tr>
 				<?php 				
@@ -64,11 +65,23 @@
 				{
 					//$category_name = $ob->getCategory_name();
 					//echo "<tr><td>$category_name</td></tr>";
+					$hasImage = False;
+					$image;
+					if($co->getImagefilename() != "") 
+					{
+						$image = "../res/images/coupons/".$co->getBusiness_id()."/".$co->getCategory_id()."/".$co->getImagefilename();
+					}
+					else
+					{
+						//Default image
+						$image = "../res/images/coupons/noImage.png";
+					}
 					echo "<tr title='".$co->getDescription()."'>";
 					echo "<td>".$co->getId()."</td>";
 					echo "<td>".$co->getName()."</td>";
 					echo "<td>".$co->getCategory_id()."</td>";
 					echo "<td>".$co->getBusiness_id()."</td>";
+					echo "<td><a href='".$image."' target='_blank' class='' title='".$co->getName()."'><img src='".$image."' border='0' alt='".$co->getName()."' title='".$co->getName()."' width='32' height='32'></a></td>";
 					echo "<td><form action='editCoupon.php' method='post'>";
 					echo "<input type='hidden' id='id' name='id' value='".$co->getId()."'>";
 					echo "<input type='submit' value='edit'></form></td>";
