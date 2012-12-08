@@ -7,6 +7,7 @@ interface ICouponsDAO
 	function updateCoupon(Coupon $coupon);
 	function getCategory($id);
 	function getCategories();
+	function getBusinesses();
 	function connect();
 	function disconnect(mysqli $dbConnection);
 }

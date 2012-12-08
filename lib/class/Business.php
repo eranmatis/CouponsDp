@@ -25,7 +25,15 @@ class Business
 
 	function __construct($idVal, $nameVal, $streetVal, $numberVal, $cityVal, $zipVal, $telephoneVal, $latitudeVal, $longtitudeVal)
 	{
-
+		$this->setId($idVal);
+		$this->setName($nameVal);
+		$this->setStreet($streetVal);
+		$this->setNumber($numberVal);
+		$this->setCity($cityVal);
+		$this->setZip($zipVal);
+		$this->setTelephone($telephoneVal);
+		$this->setLatitude($latitudeVal);
+		$this->setLongtitude($longtitudeVal);
 	}
 
 	function __toString()
