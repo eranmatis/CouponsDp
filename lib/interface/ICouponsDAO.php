@@ -6,6 +6,7 @@ interface ICouponsDAO
 	function getCoupons($from,$howMany);
 	function updateCoupon(Coupon $coupon);
 	function getCategory($id);
+	function getBusiness($id);
 	function getCategories();
 	function getBusinesses();
 	function connect();

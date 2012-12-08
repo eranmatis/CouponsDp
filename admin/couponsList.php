@@ -5,6 +5,7 @@
 	include '../lib/class/Coupon.php';
 	include '../lib/class/CouponException.php';
 	include '../lib/class/Category.php';
+	include '../lib/class/Business.php';
 	//A 'catch all' Function
 	function generalExceptionHandler($e)
 	{
@@ -83,8 +84,10 @@
 					echo "<tr title='".$co->getDescription()."'>";
 					echo "<td>".$co->getId()."</td>";
 					echo "<td>".$co->getName()."</td>";
-					echo "<td>".$co->getCategory_id()."</td>";
-					echo "<td>".$co->getBusiness_id()."</td>";
+					//echo "<td>".$co->getCategory_id()."</td>";
+					echo "<td>".couponsDAO::getCategory($co->getCategory_id())."</td>";
+					//echo "<td>".$co->getBusiness_id()."</td>";
+					echo "<td>".couponsDAO::getBusiness($co->getBusiness_id())."</td>";
 					echo "<td><a href='".$image."' target='_blank' class='' title='".$co->getName()."'><img src='".$image."' border='0' alt='".$co->getName()."' title='".$co->getName()."' width='32' height='32'></a></td>";
 					echo "<td><form action='editCoupon.php' method='post'>";
 					echo "<input type='hidden' id='id' name='id' value='".$co->getId()."'>";
