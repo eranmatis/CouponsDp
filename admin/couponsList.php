@@ -46,8 +46,12 @@
 					רשימת קופונים
 					</td>
 				</tr>
-				<?php if($msg != '')
-					echo "<tr><td colspan='5' class='message'>".$msg."</td></tr>";	
+				<?php 
+					$msg = $_GET["msg"];
+					if($msg != '') 
+					{
+						echo "<tr><td colspan='6' class='message'>".$msg."</td></tr>";	
+					}
 				?>
 				
 				<tr>
