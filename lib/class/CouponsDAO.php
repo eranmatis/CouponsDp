@@ -24,6 +24,8 @@ class CouponsDAO implements ICouponsDAO
 		try
 		{
 			//Miki's MySql connection 
+			//$mysqli -> connect("127.0.0.1","coupy","coup56","coupons");
+			//clowd connection 
 			$mysqli -> connect("mysql.1host.co.il", "avishay_CDP", "coupon1", "avishay_CDP");
 			//Eran's localhost MySql connection 
 			//$mysqli -> connect("localhost", "root", "", "avishay_CDP");
@@ -106,6 +108,31 @@ class CouponsDAO implements ICouponsDAO
 		CouponsDAO::disconnect($mysqlDbCon);
 
 	}
+	/**
+	 * @miki
+	 * (non-PHPdoc)
+	 * @see ICouponsDAO::getBusinesses()
+	 */
+	function getBusinesses()
+	{
+		$mysqlDbCon = CouponsDAO::connect();
+		$str = "SELECT id,name,street,number,city,zip,telephone,latitude,longtitude FROM businesses";
+		$result = $mysqlDbCon->query($str,MYSQLI_STORE_RESULT);
+		//iterating the rows
+		$vec = array();
+		$index = 0;
+		while(list($idVal, $nameVal, $streetVal, $numberVal, $cityVal, $zipVal, $telephoneVal, $latitudeVal, $longtitudeVal) = $result->fetch_row())
+		{
+			//echo "<tr><td>$idVal</td><td>$nameVal</td></tr>";
+			$vec[$index] = new Business($idVal, $nameVal, $streetVal, $numberVal, $cityVal, $zipVal, $telephoneVal, $latitudeVal, $longtitudeVal);
+			$index++;
+		}//closing the connection
+		//echo var_dump($vec);
+		return $vec;
+		CouponsDAO::disconnect($mysqlDbCon);
+		
+	}
+	
 	/**
 	 * @param Coupon $ob
 	 * 1. open DB connection

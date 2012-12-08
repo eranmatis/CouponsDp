@@ -5,6 +5,7 @@ include '../lib/class/CouponsDAO.php';
 include '../lib/class/Coupon.php';
 include '../lib/class/CouponException.php';
 include '../lib/class/Category.php';
+include '../lib/class/Business.php';
 	//include 'library.php';
 	//A 'catch all' Function
 	function generalExceptionHandler($e)
@@ -89,7 +90,7 @@ include '../lib/class/Category.php';
 				?>
 
 				<tr>
-					<td>category id:</td>
+					<td>category Name:</td>
 					<?php
 						if (!isset($couponsDAO))
 						{
@@ -113,15 +114,32 @@ include '../lib/class/Category.php';
 					</td>
 				</tr>
 				<tr>
-					<td>business Id:</td>
-					<td><input type='text' name='businessId' value="<?php echo $businessId; ?>"></td>
+					<td>business Name:</td>
+					<?php
+						if (!isset($couponsDAO))
+						{
+							 $couponsDAO = couponsDAO::getInstance();
+						}
+					?>
+					<?php $businessList = CouponsDAO::getBusinesses(); ?>
+					<?php //var_dump($businessList);?>
+					<td>
+						<select name="businessId">
+                      		<?php 
+                      		    
+                      			foreach ($businessList as $bus) { 
+					 				echo "<option value=".  $bus->getId() . ">" .$bus->getName() ."</option>"; 
+								} 
+					 		?>
+					 	</select> 
+					</td>
 				</tr>
 				<tr>
-					<td>name:</td>
+					<td>Coupon Name:</td>
 					<td><input type='text' name='name' value="<?php echo $name; ?>"></td>
 				</tr>
 				<tr>
-					<td colspan="2">description:</td>
+					<td colspan="2">Coupon Description:</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -129,7 +147,7 @@ include '../lib/class/Category.php';
 					</td>
 				</tr>
 				<tr>
-					<td>image File Name:</td>
+					<td>Image File Name:</td>
 					<td><input type='text' name='imageFileName' value="<?php echo $imageFileName; ?>"></td>
 				</tr>
 				<tr>
