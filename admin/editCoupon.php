@@ -5,6 +5,7 @@
 	include '../lib/class/Coupon.php';
 	include '../lib/class/CouponException.php';
 	include '../lib/class/Category.php';
+	include '../lib/class/Business.php';
 	//A 'catch all' Function
 	function generalExceptionHandler($e)
 	{
@@ -62,7 +63,7 @@ catch (CouponException $e)
 				?>
 
 				<tr>
-					<td>category id:</td>
+					<td>Category Name:</td>
 					<?php $categoryList = couponsDAO::getCategories(); ?>
 					<?php //var_dump($categoryList);?>
 					<td>
@@ -85,8 +86,25 @@ catch (CouponException $e)
 					</td>
 				</tr>
 				<tr>
-					<td>business Id:</td>
-					<td><input type='text' name='businessId' value="<?php echo $coupon->getBusiness_id(); ?>"></td>
+					<td>Business Name:</td>
+					<?php $businessList = couponsDAO::getBusinesses(); ?>
+					<?php //var_dump($businessList);?>
+					<td>
+						<select name="businessId">
+                      		<?php 
+                      		    
+                      			foreach ($businessList as $bus) { 
+									$selected='';
+									if ($bus->getId() == $coupon->getBusiness_id())
+									{
+										$selected=' selected ';
+									}
+					 				echo "<option value=" .  $bus->getId() . " " . $selected .">". $bus->getName() ."</option>"; 
+								} 
+					 		?>
+					 	</select> 
+					</td>
+					
 				</tr>
 				<tr>
 					<td>name:</td>
