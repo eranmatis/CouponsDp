@@ -95,6 +95,10 @@
 					echo "</tr>";
 						
 				}?>
+				
+				<tr>
+					<td><a href="admin.php">Add a new Coupon</a></td>
+				</tr>
 			</table>
 	</body>
 </html>

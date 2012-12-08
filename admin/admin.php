@@ -155,7 +155,12 @@ include '../lib/class/Business.php';
 						<input type=submit class="button">
 					</td>
 				</tr>
+				
+				<tr>
+					<td colspan="2">See <a href="couponsList.php">CouponsList</a></td>
+				</tr>
 			</table>
 		</form>
+		
 	</body>
 </html>

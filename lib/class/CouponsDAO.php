@@ -1,5 +1,5 @@
 <?php
-include '../interface/ICouponsDAO.php';
+//include '../interface/ICouponsDAO.php';
 
 
 class CouponsDAO implements ICouponsDAO
