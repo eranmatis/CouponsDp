@@ -256,26 +256,32 @@ class CouponsDAO implements ICouponsDAO
 		CouponsDAO::disconnect($mysqlDbCon);
 
 	}
+
 	function getBusiness($id)
 	{
+		//throw new MovieException("unimplemented method!");
 		$mysqlDbCon = CouponsDAO::connect();
-		$str = "SELECT name FROM businesses WHERE id = ".$id;
+		$query = "SELECT * FROM businesses WHERE id = ".$id;
 		try
 		{
-			//performing the query
-			$result = $mysqlDbCon->query($str,MYSQLI_STORE_RESULT);
+			$result = $mysqlDbCon->query($query,MYSQLI_STORE_RESULT);
 		}
 		catch (mysqli_sql_exception $e)
 		{
 			echo $e->getMessage();
 		}
-		while(list($name) = $result->fetch_row())
+
+		while(list($id, $name, $street, $number, $city, $zip, $telephone, $latitude, $longtitude) = $result->fetch_row())
 		{
-			//printf("%s<br>",$name);
-			return $name;
+				
+			$business = new Business($id, $name, $street, $number, $city, $zip, $telephone, $latitude, $longtitude);
+			return $business;
+				
 		}
+
 		//Close the connection to the DB
 		CouponsDAO::disconnect($mysqlDbCon);
+
 	}
 }
 ?>

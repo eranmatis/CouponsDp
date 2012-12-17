@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <?php 
 	include '../lib/interface/ICouponsDAO.php';
 	include '../lib/class/CouponsDAO.php';
@@ -68,6 +68,12 @@
 		  }
 		}
 	</script>
+	
+	<?php
+		$lat = $_POST['lat'];
+		$long = $_POST['long'];
+		//echo "lat= ". $lat . " long= ". $long;
+	?>
 </head>
 <?php
 	//set from and howmany variables from the GUI.
@@ -87,18 +93,17 @@
 ?>
 	
 <body onLoad="setMyPosition();">
-	
 	<form id="myLocationFrm" name="myLocationFrm" action="couponsLocationList.php" method="post">
-		Lat: <input type="text" id="lat" name="lat">
-		Long: <input type="text" id="long" name="long">
+		Lat: <input type="text" id="lat" name="lat" value="<?php $lat; ?>">
+		Long: <input type="text" id="long" name="long" value="<?php $long; ?>">
 		<input type="submit">
 	</form>
 	
 	<script>
 		function getBusDistance(cLong, cLat, busLongitude, busLatitude) {
 			//alert(busLongitude + ", " + busLatitude);
-			//return distance(cLong, cLat, busLongitude, busLatitude);
-			return distance(34.777820999999996, 32.066157, busLongitude, busLatitude);
+			return distance(cLong, cLat, busLongitude, busLatitude);
+			//return distance(34.777820999999996, 32.066157, busLongitude, busLatitude);
 		}
 	</script>
 	
@@ -121,8 +126,8 @@
 			<td>שם</td>
 			<td>קטגוריה</td>
 			<td>שם העסק</td>
-			<!--<td>מרחק מבית העסק</td>-->
-			<td>תמונה</td>
+			<td>מרחק מבית העסק</td>
+			
 			<td>עריכה</td>
 		</tr>
 		<?php 				
@@ -130,18 +135,6 @@
 		
 		foreach($coupons as $co)
 		{
-			$hasImage = False;
-			$image;
-			if($co->getImagefilename() != "") 
-			{
-				$image = "../res/images/coupons/".$co->getBusiness_id()."/".$co->getCategory_id()."/".$co->getImagefilename();
-			}
-			else
-			{
-				//Default image
-				$image = "../res/images/coupons/noImage.png";
-			}
-			
 			//Get The Business Data
 			try
 			{
@@ -157,8 +150,7 @@
 			echo "<td>".$co->getName()."</td>";
 			echo "<td>".couponsDAO::getCategory($co->getCategory_id())."</td>";
 			echo "<td>".$bus->getName()."</td>";
-			//echo "<td><script>document.write(getBusDistance(document.getElementById('long').value, document.getElementById('lat').value, ".$bus->getLongtitude().", ".$bus->getLatitude()."));</script></td>";
-			echo "<td><a href='".$image."' target='_blank' class='' title='".$co->getName()."'><img src='".$image."' border='0' alt='".$co->getName()."' title='".$co->getName()."' width='32' height='32'></a></td>";
+			echo "<td><script>document.write(getBusDistance(".$long.", ".$lat.", ".$bus->getLongtitude().", ".$bus->getLatitude()."));</script></td>";
 			echo "<td><form action='editCoupon.php' method='post'>";
 			echo "<input type='hidden' id='id' name='id' value='".$co->getId()."'>";
 			echo "<input type='submit' value='edit'></form></td>";
