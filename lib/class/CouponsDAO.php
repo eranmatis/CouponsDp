@@ -83,7 +83,29 @@ class CouponsDAO implements ICouponsDAO
 
 		return $vec;
 	}
-
+	function getCouponsByBusiness($business_id)
+	{
+		
+		$mysqlDbCon = CouponsDAO::connect();
+		$str = "select * from coupons where business_id=".$business_id;
+		//performing the query
+		$result = $mysqlDbCon->query($str,MYSQLI_STORE_RESULT);
+	
+		//iterating the rows
+		$vec = array();
+		$index = 0;
+		while(list($id,$category_id,$business_id,$name,$description,$imagefilename) = $result->fetch_row())
+		{
+			//echo "<tr><td>$id</td><td>$name</td><td>$length</td></tr>";
+			$vec[$index] = new Coupon($id,$category_id,$business_id,$name,$description,$imagefilename);
+			$index++;
+		}
+	
+		//closing the connection
+		CouponsDAO::disconnect($mysqlDbCon);
+	
+		return $vec;
+	}
 	/**
 	 * @author
 	 * (non-PHPdoc)
